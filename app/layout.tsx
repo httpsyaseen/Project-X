@@ -18,7 +18,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={GeistSans.className}>
-      <body className="bg-background text-foreground">
+      {/* <body className="bg-gradient-to-r from-[#242145] to-[#FFFFFF] min-h-screen"> */}
+      <body className="bg-[#006A4E] min-h-screen">
         <main className="min-h-screen flex flex-col items-center">
           {children}
         </main>

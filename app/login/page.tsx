@@ -41,8 +41,14 @@ export default function Login({
       password,
       options: {
         emailRedirectTo: `${origin}/auth/callback`,
+        // data: {
+        //   // name: "Yaseen Nazir",
+        //   // photo: "myphoto",
+        // },
       },
     });
+
+    console.log(error);
 
     if (error) {
       return redirect("/login?message=Could not authenticate user");
