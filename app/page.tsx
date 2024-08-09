@@ -2,7 +2,7 @@ import AuthButton from "../components/AuthButton";
 import { createClient } from "@/utils/supabase/server";
 import ConnectSupabaseSteps from "@/components/tutorial/ConnectSupabaseSteps";
 import SignUpUserSteps from "@/components/tutorial/SignUpUserSteps";
-import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
@@ -37,14 +37,17 @@ export default async function Index() {
                   className="rounded-lg object-cover aspect-[4/3]"
                 />
               </div>
-              <div className="space-y-4 align-middle">
+              <div className="space-y-4 my-auto">
                 <div className="space-y-2">
                   <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
                     The Ultimate Guide to Mastering React Hooks
                   </h1>
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Avatar className="h-6 w-6">
-                      <AvatarImage src="/placeholder-user.jpg" alt="@shadcn" />
+                    <Avatar className="h-7 w-7 ">
+                      <AvatarImage
+                        src="https://github.com/shadcn.png"
+                        alt="@shadcn"
+                      />
                       <AvatarFallback>JP</AvatarFallback>
                     </Avatar>
                     <span>Jared Palmer</span>
@@ -61,7 +64,7 @@ export default async function Index() {
             </div>
           </div>
         </section>
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-white">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -74,7 +77,7 @@ export default async function Index() {
                 </p>
               </div>
             </div>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-12">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-12 bg-white">
               {[1, 2, 3, 4, 5, 6].map((_, i) => {
                 return (
                   <>
