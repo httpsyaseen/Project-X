@@ -2,7 +2,6 @@ import Link from "next/link";
 import { headers } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import { SubmitButton } from "./submit-button";
 import LoginBG from "@/public/images/login-bg.jpg";
 import Image from "next/image";
 
@@ -69,6 +68,10 @@ export default function Login({
           objectFit="cover"
           className="absolute inset-0"
         />
+        <span className="absolute top-[50%] inset-0 text-center text-white text-5xl">
+          Lets Create the Future
+          <span className="font-bold">Together</span>
+        </span>
       </div>
 
       <div className="w-full lg:w-5/12 flex items-center justify-center bg-background px-4 py-8 sm:px-6 lg:px-8">

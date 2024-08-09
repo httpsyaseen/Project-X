@@ -10,8 +10,8 @@ import {
 
 export default function Header() {
   return (
-    <header className="bg-background  px-2 md:px-6 lg:px-8 border-b ">
-      <div className="container mx-auto flex items-center justify-between py-3 border-b md:border-none">
+    <header className=" px-2 md:px-6 lg:px-8  bg-[#242145] text-white ">
+      <div className="container mx-auto flex items-center justify-between py-3  md:border-none">
         <Link href="#">
           <span className="text-2xl  font-semibold">Easify</span>
         </Link>
@@ -23,7 +23,7 @@ export default function Header() {
               className="w-full rounded-full border border-input bg-background px-4 py-2 pr-10 text-sm focus:border-primary focus:outline-none"
             />
           </div>
-          <button className=" px-3 py-2 rounded-full bg-black text-white text-nowrap ">
+          <button className=" px-3 py-2 rounded-full bg-primary text-white text-nowrap ">
             Sign Up
           </button>
           <DropdownMenu>
@@ -46,7 +46,7 @@ export default function Header() {
         </div>
       </div>
 
-      <div className="flex md:hidden my-4 justify-center items-center self-center px-3">
+      <div className="flex md:hidden py-4 justify-center items-center self-center px-3">
         <input
           type="text"
           placeholder="Search articles..."

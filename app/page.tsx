@@ -3,7 +3,7 @@ import { createClient } from "@/utils/supabase/server";
 import ConnectSupabaseSteps from "@/components/tutorial/ConnectSupabaseSteps";
 import SignUpUserSteps from "@/components/tutorial/SignUpUserSteps";
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
-import Header from "@/components/Header";
+
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
 import Image from "next/image";
@@ -24,7 +24,6 @@ export default async function Index() {
 
   return (
     <>
-      <Header />
       <main className="flex-1">
         <section className="bg-muted py-12 md:py-16 lg:py-20 border-b">
           <div className="container">

@@ -13,6 +13,10 @@ export default function Page() {
           objectFit="cover"
           className="absolute inset-0"
         />
+        <span className="absolute top-[50%] inset-0 text-center text-white text-5xl">
+          Lets Create the Future
+          <span className="font-bold">Together</span>
+        </span>
       </div>
 
       <div className="w-full lg:w-5/12 flex items-center justify-center bg-background px-4 py-8 sm:px-6 lg:px-8">
@@ -78,36 +82,8 @@ export default function Page() {
                 // onChange={handleChange}
                 className="mt-1 block w-full border border-gray-300 rounded-md py-2 px-3 shadow-sm focus:ring-primary focus:border-primary focus:outline-primary sm:text-sm"
               />
-              {/* {error?.password && (
-                <div>
-                  <p className="text-red-500  ps-1 text-sm">Pasword must be:</p>
-                  {error.password.map((err) => (
-                    <>
-                      <p className="text-red-500 ps-3 text-sm">{`- ${err}`}</p>
-                    </>
-                  ))}
-                </div>
-              )} */}
             </div>
 
-            {/* <div> */}
-            {/* <label
-                htmlFor="address"
-                className="flex items-center justify-center bg-primary hover:bg-blue-600 text-white px-4 py-2 rounded-lg cursor-pointer"
-              >
-                Upload Profile photo
-              </label>
-              <input
-                type="file"
-                id="file-input"
-                accept="image/*"
-                className="absolute inset-0 opacity-0 cursor-pointer"
-                // onChange={handleFileChange}
-              /> */}
-            {/* {error?.address && (
-                <p className="text-red-500 ps-1 text-sm">{error.address}</p>
-              )} */}
-            {/* </div> */}
             <button
               type="submit"
               className="w-full bg-primary text-white py-2 px-4 rounded-md font-medium hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
