@@ -3,6 +3,8 @@ import { headers } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "./submit-button";
+import LoginBG from "@/public/images/login-bg.jpg";
+import Image from "next/image";
 
 export default function Login({
   searchParams,
@@ -58,68 +60,104 @@ export default function Login({
   };
 
   return (
-    <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
-      <Link
-        href="/"
-        className="absolute left-8 top-8 py-2 px-4 rounded-md no-underline text-foreground bg-btn-background hover:bg-btn-background-hover flex items-center group text-sm"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1"
-        >
-          <polyline points="15 18 9 12 15 6" />
-        </svg>{" "}
-        Back
-      </Link>
+    <div className="flex min-h-[91dvh]">
+      <div className="hidden lg:block w-7/12 relative">
+        <Image
+          src={LoginBG}
+          alt="Login Image"
+          layout="fill"
+          objectFit="cover"
+          className="absolute inset-0"
+        />
+      </div>
 
-      <form className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
-        <label className="text-md" htmlFor="email">
-          Email
-        </label>
-        <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-6"
-          name="email"
-          placeholder="you@example.com"
-          required
-        />
-        <label className="text-md" htmlFor="password">
-          Password
-        </label>
-        <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-6"
-          type="password"
-          name="password"
-          placeholder="••••••••"
-          required
-        />
-        <SubmitButton
-          formAction={signIn}
-          className="bg-green-700 rounded-md px-4 py-2 text-foreground mb-2"
-          pendingText="Signing In..."
-        >
-          Sign In
-        </SubmitButton>
-        <SubmitButton
-          formAction={signUp}
-          className="border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2"
-          pendingText="Signing Up..."
-        >
-          Sign Up
-        </SubmitButton>
-        {searchParams?.message && (
-          <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
-            {searchParams.message}
+      <div className="w-full lg:w-5/12 flex items-center justify-center bg-background px-4 py-8 sm:px-6 lg:px-8">
+        <div className="w-full max-w-md space-y-6">
+          <div className="text-center">
+            <h1 className="text-3xl font-bold text-foreground">
+              Sign in to your account
+            </h1>
+            <p className="text-muted-foreground mt-2">
+              Enter your email and password below to access your account.
+            </p>
+          </div>
+          <form className="space-y-4">
+            <div>
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-foreground"
+              >
+                Email address
+              </label>
+              <input
+                id="email"
+                type="email"
+                // value={formData.email}
+                // onChange={handleChange}
+                placeholder="name@example.com"
+                required
+                minLength={6}
+                className="mt-1 block w-full border border-gray-300 rounded-md py-2 px-3 shadow-sm focus:ring-primary focus:border-primary sm:text-sm focus:outline-primary"
+              />
+              {/* {error?.email && (
+                <p className="text-red-500 ps-1 text-sm">{error.email}</p>
+              )} */}
+            </div>
+            <div>
+              <div className="flex items-center justify-between">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-foreground"
+                >
+                  Password
+                </label>
+                <Link
+                  href="#"
+                  className="text-sm font-medium text-primary hover:underline"
+                >
+                  Forgot password?
+                </Link>
+              </div>
+              <input
+                id="password"
+                type="password"
+                required
+                minLength={8}
+                // onChange={handleChange}
+                // value={formData.password}
+                className="mt-1 block w-full border border-gray-300 rounded-md py-2 px-3 shadow-sm focus:ring-primary focus:border-primary sm:text-sm focus:outline-primary"
+              />
+              {/* {error?.password && (
+                <div>
+                  <p className="text-red-500  ps-1 text-sm">Pasword must be:</p>
+                  {error.password.map((err) => (
+                    <>
+                      <p className="text-red-500 ps-3 text-sm">{`- ${err}`}</p>
+                    </>
+                  ))}
+                </div>
+              )} */}
+            </div>
+            <button
+              // disabled={loading}
+              type="submit"
+              className="w-full bg-primary text-white py-2 px-4 rounded-md font-medium hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            >
+              {/* {loading ? "logging In" : "Login"} */}
+              Login
+            </button>
+          </form>
+          <p className="text-center text-sm text-muted-foreground">
+            Don&apos;t have an account?{" "}
+            <Link
+              href="/signup"
+              className="font-medium text-primary hover:underline"
+            >
+              Sign up
+            </Link>
           </p>
-        )}
-      </form>
+        </div>
+      </div>
     </div>
   );
 }

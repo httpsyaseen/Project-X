@@ -1,44 +1,58 @@
-import NextLogo from "./NextLogo";
-import SupabaseLogo from "./SupabaseLogo";
+import Link from "next/link";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
 
 export default function Header() {
   return (
-    <div className="flex flex-col gap-16 items-center">
-      <div className="flex gap-8 justify-center items-center">
-        <a
-          href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <SupabaseLogo />
-        </a>
-        <span className="border-l rotate-45 h-6" />
-        <a href="https://nextjs.org/" target="_blank" rel="noreferrer">
-          <NextLogo />
-        </a>
+    <header className="bg-background  px-2 md:px-6 lg:px-8 border-b ">
+      <div className="container mx-auto flex items-center justify-between py-3 border-b md:border-none">
+        <Link href="#">
+          <span className="text-2xl  font-semibold">Easify</span>
+        </Link>
+        <div className="flex items-center gap-4">
+          <div className="hidden w-full max-w-md md:flex">
+            <input
+              type="text"
+              placeholder="Search articles..."
+              className="w-full rounded-full border border-input bg-background px-4 py-2 pr-10 text-sm focus:border-primary focus:outline-none"
+            />
+          </div>
+          <button className=" px-3 py-2 rounded-full bg-black text-white text-nowrap ">
+            Sign Up
+          </button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Avatar className="h-9 w-9 hover:cursor-pointer">
+                <AvatarImage
+                  src="https://github.com/shadcn.png"
+                  alt="@shadcn"
+                />
+                <AvatarFallback>JP</AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem>My Account</DropdownMenuItem>
+              <DropdownMenuItem>Settings</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Logout</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
-      <h1 className="sr-only">Supabase and Next.js Starter Template</h1>
-      <p className="text-3xl lg:text-4xl !leading-tight mx-auto max-w-xl text-center">
-        The fastest way to build apps with{" "}
-        <a
-          href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-          target="_blank"
-          className="font-bold hover:underline"
-          rel="noreferrer"
-        >
-          Supabase
-        </a>{" "}
-        and{" "}
-        <a
-          href="https://nextjs.org/"
-          target="_blank"
-          className="font-bold hover:underline"
-          rel="noreferrer"
-        >
-          Next.js
-        </a>
-      </p>
-      <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent my-8" />
-    </div>
+
+      <div className="flex md:hidden my-4 justify-center items-center self-center px-3">
+        <input
+          type="text"
+          placeholder="Search articles..."
+          className="w-full rounded-full border border-input bg-background px-4 py-3 pr-10 text-sm focus:border-primary focus:outline-none"
+        />
+      </div>
+    </header>
   );
 }
