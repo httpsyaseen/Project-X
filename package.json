@@ -17,6 +17,7 @@
     "clsx": "^2.1.1",
     "draft-js": "^0.11.7",
     "geist": "^1.2.1",
+    "html-react-parser": "^5.1.12",
     "lucide-react": "^0.424.0",
     "next": "latest",
     "postcss": "8.4.33",
