@@ -1,105 +1,120 @@
 "use client";
 
-import React, { useState, useRef, ChangeEvent, KeyboardEvent } from "react";
-import { createClient } from "@/utils/supabase/client";
+import React, { useState, useRef } from "react";
 
-const CustomEditor: React.FC = () => {
-  const supabase = createClient();
+export default function Page() {
+  const [input, setInput] = useState("");
+  const [output, setOutput] = useState("");
 
-  const [content, setContent] = useState<string>("");
-  const editorRef = useRef<HTMLTextAreaElement>(null);
+  const convertToBlog = () => {
+    let html = input
+      .replace(/^@main (.+)$/gm, '<h1 class="main-heading">$1</h1>')
+      .replace(/^@sub (.+)$/gm, '<h2 class="sub-heading">$1</h2>')
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+      .replace(/^(\d+\. .+)$/gm, "<li>$1</li>")
+      .replace(
+        /<li>[\s\S]*?<\/li>/g,
+        (match) => `<ol class="numbered-list">${match}</ol>`
+      )
+      .replace(/^(.+)$/gm, (match, p1) => {
+        if (
+          !p1.startsWith("<h1") &&
+          !p1.startsWith("<h2") &&
+          !p1.startsWith("<ol") &&
+          !p1.startsWith("<img")
+        ) {
+          return `<p class="paragraph">${p1}</p>`;
+        }
+        return match;
+      })
+      .replace(/```([\s\S]*?)```/g, "<pre><code>$1</code></pre>");
 
-  const insertFormat = (startTag: string, endTag: string): void => {
-    if (editorRef.current) {
-      const textArea = editorRef.current;
-      const start = textArea.selectionStart;
-      const end = textArea.selectionEnd;
-      const selectedText = content.substring(start, end);
-      const replacement = startTag + selectedText + endTag;
-      setContent(
-        content.substring(0, start) + replacement + content.substring(end)
-      );
-    }
+    setOutput(html);
   };
 
-  const insertImage = async (
-    e: ChangeEvent<HTMLInputElement>
-  ): Promise<void> => {
-    const file = e.target.files?.[0];
-    if (file) {
-      try {
-        console.log("tried");
-        // Upload file to Supabase Storage
-        const fileExt = file.name.split(".").pop();
-        const fileName = `${Math.random()}.${fileExt}`;
-        const { data, error } = await supabase.storage
-          .from("blog-images")
-          .upload(fileName, file);
+  const generateHTMLPage = () => {
+    const htmlContent = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Blog</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .main-heading {
+            color: #333;
+            font-size: 28px;
+            border-bottom: 2px solid #333;
+        }
+        .sub-heading {
+            color: #666;
+            font-size: 22px;
+        }
+        .paragraph {
+            font-size: 16px;
+        }
+        .paragraph a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        .paragraph a:hover {
+            text-decoration: underline;
+        }
+        .blog-image {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+        }
+        .numbered-list {
+            margin-left: 20px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    ${output}
+</body>
+</html>
+    `;
 
-        if (error) throw error;
-
-        // Get public URL of uploaded file
-        const { publicURL, error: urlError } = supabase.storage
-          .from("blog-images")
-          .getPublicUrl(data.path);
-
-        if (urlError) throw urlError;
-
-        // Insert image tag with public URL into content
-        const imageTag = `<img src="${publicURL}" alt="Uploaded image" />`;
-        setContent(content + imageTag);
-      } catch (error) {
-        console.error("Error uploading image:", error);
-        alert("Failed to upload image. Please try again.");
-      }
-    }
-  };
-
-  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>): void => {
-    if (e.key === "Tab") {
-      e.preventDefault();
-      if (editorRef.current) {
-        const start = editorRef.current.selectionStart;
-        const end = editorRef.current.selectionEnd;
-        setContent(content.substring(0, start) + "\t" + content.substring(end));
-        setTimeout(() => {
-          if (editorRef.current) {
-            editorRef.current.selectionStart = editorRef.current.selectionEnd =
-              start + 1;
-          }
-        }, 0);
-      }
-    }
+    const blob = new Blob([htmlContent], { type: "text/html" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "blog.html";
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   return (
-    <div>
-      <div>
-        <button onClick={() => insertFormat("<main>", "</main>")}>Main</button>
-        <button onClick={() => insertFormat("<sub>", "</sub>")}>
-          Subheading
-        </button>
-        <button onClick={() => insertFormat("<link>", "</link>")}>Link</button>
-        <button onClick={() => insertFormat("<point>", "</point>")}>
-          Point
-        </button>
-        <input type="file" accept="image/*" onChange={insertImage} />
-      </div>
+    <div className="App">
       <textarea
-        ref={editorRef}
-        value={content}
-        onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
-          setContent(e.target.value)
-        }
-        onKeyDown={handleKeyDown}
-        style={{ width: "100%", height: "400px" }}
+        id="editor"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        // rows="10"
+        // cols="50"
+        placeholder="Type your blog content here. Use @main for main heading, @sub for sub-heading, [text](url) for links, ![alt](image_name) for images, and numbered lists with 1. 2. etc."
       />
-      <div>
-        <h3>Preview:</h3>
-        <div dangerouslySetInnerHTML={{ __html: content }} />
-      </div>
+      <button onClick={convertToBlog}>Convert to Blog</button>
+      <button onClick={generateHTMLPage}>Download HTML</button>
+      <div
+        className="blog-content"
+        dangerouslySetInnerHTML={{ __html: output }}
+      />
     </div>
   );
-};
-
-export default CustomEditor;
+}

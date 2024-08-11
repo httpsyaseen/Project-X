@@ -64,6 +64,31 @@ export default function Page() {
       );
     }
   }
+  const convertToBlog = () => {
+    let html = content
+      .replace(/^@main (.+)$/gm, '<h1 class="main-heading">$1</h1>')
+      .replace(/^@sub (.+)$/gm, '<h2 class="sub-heading">$1</h2>')
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+      .replace(/^(\d+\. .+)$/gm, "<li>$1</li>")
+      .replace(
+        /<li>[\s\S]*?<\/li>/g,
+        (match) => `<ol class="numbered-list">${match}</ol>`
+      )
+      .replace(/^(.+)$/gm, (match, p1) => {
+        if (
+          !p1.startsWith("<h1") &&
+          !p1.startsWith("<h2") &&
+          !p1.startsWith("<ol") &&
+          !p1.startsWith("<img")
+        ) {
+          return `<p class="paragraph">${p1}</p>`;
+        }
+        return match;
+      })
+      .replace(/```([\s\S]*?)```/g, "<pre><code>$1</code></pre>");
+
+    setContent(html);
+  };
 
   useEffect(() => {
     editorRef.current?.focus();
@@ -113,7 +138,7 @@ export default function Page() {
       </div>
       <div>
         <h1 className="font-semibold text-2xl py-4 ">Preview :</h1>
-        {parse(content, options)}
+        {content}
       </div>
     </main>
   );
