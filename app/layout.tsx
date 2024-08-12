@@ -1,5 +1,5 @@
 import { GeistSans } from "geist/font/sans";
-import { Poppins } from "next/font/google";
+import { Poppins, Roboto } from "next/font/google";
 
 import "./globals.css";
 import Header from "@/components/Header";
@@ -14,7 +14,7 @@ export const metadata = {
 };
 
 const poppins = Poppins({
-  weight: ["400", "500", "600", "700"],
+  weight: ["100", "300", "400", "700"],
   subsets: ["latin"],
 });
 

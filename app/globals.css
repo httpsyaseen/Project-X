@@ -81,12 +81,27 @@
 }
 
 .main-heading {
-  @apply font-bold text-[28px]  md:text-[36px] leading-10 md:leading-7 py-6;
+  @apply font-bold text-[25px]  md:text-[36px] leading-10 md:leading-7 py-3 md:py-6;
 }
 
 .sub-heading {
-  @apply font-bold text-[22px]  md:text-[28px] leading-8 py-5;
+  @apply font-bold text-[22px]  md:text-[28px] leading-8  py-3 md:py-5;
 }
 .paragraph {
-  @apply md:text-[20px] leading-7  md:leading-8 py-3;
+  @apply md:text-[20px] leading-5  md:leading-8 py-1.5 md:py-3 text-justify;
+}
+.tab-space {
+  min-width: 2rem;
+}
+
+.code {
+  font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace;
+  color: #000000;
+  background-color: #eee;
+  font-size: 12px;
+  border: 1px dashed #999999;
+  line-height: 14px;
+  padding: 5px;
+  overflow: auto;
+  width: 100%;
 }

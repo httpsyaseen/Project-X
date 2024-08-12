@@ -10,7 +10,7 @@ import {
 
 export default function Header() {
   return (
-    <header className=" px-2 md:px-6 lg:px-8  bg-[#242145] text-white ">
+    <header className=" px-2 md:px-6 lg:px-8  bg-primary text-white ">
       <div className="container mx-auto flex items-center justify-between py-3  md:border-none">
         <Link href="/">
           <span className="text-2xl  font-semibold">Easify</span>
